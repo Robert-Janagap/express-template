@@ -1,0 +1,21 @@
+{
+  "name": "express-template",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "server": "cross-env NODE_ENV=production node server.js",
+    "dev": "cross-env DEBUG=server:debug NODE_ENV=development nodemon server.js",
+    "test": "cross-env DEBUG=server:debug NODE_ENV=test node server.js"
+  },
+  "repository": "https://github.com/Robert-Janagap/express-template.git",
+  "author": "robert <robert@alliedworld.healthcare>",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.2.5",
+    "cross-env": "^6.0.3",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.2"
+  }
+}
