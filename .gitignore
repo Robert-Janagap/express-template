@@ -1,3 +1,6 @@
+# specific file
+config/productions.json
+
 # Logs
 logs
 *.log

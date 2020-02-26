@@ -4,11 +4,19 @@ const fs = require("fs");
 const path = require("path");
 const config = require("config");
 const debug = require("debug")("server:debug");
+const connectDB = require("./database/connect");
+const cors = require("cors");
 
 const app = express();
 
+// connect to database
+connectDB();
+
 // express default bodyparser
 app.use(express.json({ extended: false }));
+
+// prevent cors issue
+app.use(cors());
 
 // create a write stream (in append mode)
 const accessLogStream = fs.createWriteStream(
@@ -22,11 +30,10 @@ app.use(morgan("dev"));
 // log all request to access.log
 app.use(morgan("combined", { stream: accessLogStream }));
 
-const PORT = process.env.PORT || config.get("PORT");
+// routes
+app.use("/v1/audit", require("./routes/v1/audit"));
 
-app.get("", async (req, res) => {
-  res.send("hello World");
-});
+const PORT = process.env.PORT || config.get("PORT");
 
 const listen = app.listen(PORT, () => {
   debug(`Server started on port: ${PORT} and in ${config.get("name")} mode`);

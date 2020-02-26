@@ -14,10 +14,12 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "config": "^3.2.5",
+    "cors": "^2.8.5",
     "cross-env": "^6.0.3",
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "mocha": "^7.0.0",
+    "mongoose": "^5.9.2",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"
