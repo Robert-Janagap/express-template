@@ -4,18 +4,16 @@ const LogSchema = new mongoose.Schema(
   {
     user: {
       type: String,
-      required: true
+      trim: true
     },
     application: {
       type: String,
       trim: true,
-      required: true,
       lowercase: true
     },
     event: {
       type: String,
       trim: true,
-      required: true,
       lowercase: true
     }
   },

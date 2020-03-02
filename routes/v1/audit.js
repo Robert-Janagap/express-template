@@ -23,8 +23,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { user, application, action, component, statusCode } = req.body;
-  const event = `${action}|${component}|${statusCode}`;
+  const { user, application, action, component, statusCode, itemID } = req.body;
+  const event = `${action}|${component}|${statusCode}|${itemID}`;
   const newLog = new Log({
     user,
     application,
