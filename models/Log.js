@@ -1,27 +1,17 @@
 const mongoose = require("mongoose");
 
-const LogSchema = new mongoose.Schema(
+const testSchema = new mongoose.Schema(
   {
     user: {
       type: String,
-      trim: true
-    },
-    application: {
-      type: String,
       trim: true,
-      lowercase: true
     },
-    event: {
-      type: String,
-      trim: true,
-      lowercase: true
-    }
   },
   {
     timestamps: {
-      createdAt: "createdAt"
-    }
+      createdAt: "createdAt",
+    },
   }
 );
 
-module.exports = Log = mongoose.model("log", LogSchema);
+module.exports = Test = mongoose.model("test", testSchema);

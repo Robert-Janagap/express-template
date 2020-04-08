@@ -1,6 +1,6 @@
 {
   "name": "Server Production",
   "PORT": 3010,
-  "mongoURI": "mongodb://localhost:27017/audit",
+  "mongoURI": "mongodb://localhost:27017/test",
   "jwtSecret": "wizard"
 }

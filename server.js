@@ -31,7 +31,6 @@ app.use(morgan("dev"));
 app.use(morgan("combined", { stream: accessLogStream }));
 
 // routes
-app.use("/v1/audit", require("./routes/v1/audit"));
 
 const PORT = process.env.PORT || config.get("PORT");
 
