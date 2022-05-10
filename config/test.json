@@ -1,4 +1,5 @@
 {
   "name": "Server Test",
+  "server": "Development",
   "PORT": 5000
 }

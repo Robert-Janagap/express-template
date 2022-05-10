@@ -8,6 +8,7 @@ const connectDB = require("./database/connect");
 const cors = require("cors");
 const compression = require("compression");
 const helmet = require("helmet");
+const chalk = require("./lib/logColor.lib");
 
 const app = express();
 
@@ -43,10 +44,10 @@ app.use(morgan("combined", { stream: accessLogStream }));
 const PORT = process.env.PORT || config.get("PORT");
 
 const listen = app.listen(PORT, () => {
-  debug(`Server started on port: ${PORT} and in ${config.get("name")} mode`);
-  console.log(
-    `Server started on port: ${PORT} and in ${config.get("name")} mode`
-  );
+  console.log(chalk.blue("url:"), `    http://localhost:${PORT}`);
+  console.log(chalk.blue("doc:"), `    http://localhost:${PORT}/api-docs`);
+  console.log(chalk.blue("server:"), ` ${config.get("server")}`);
+  app.emit("serverStarted");
 });
 
 module.exports = app;

@@ -1,6 +1,6 @@
 {
   "name": "express-template",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "main": "server.js",
   "scripts": {
     "server": "cross-env NODE_ENV=production node server.js",
@@ -8,11 +8,12 @@
     "test": "cross-env DEBUG=server:debug NODE_ENV=test mocha ./test/"
   },
   "repository": "https://github.com/Robert-Janagap/express-template.git",
-  "author": "robert <robert@alliedworld.healthcare>",
+  "author": "robert <janagaprobert@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "chalk": "^4.1.1",
     "compression": "^1.7.4",
     "config": "^3.2.5",
     "cors": "^2.8.5",

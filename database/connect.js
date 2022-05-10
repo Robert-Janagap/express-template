@@ -1,18 +1,21 @@
 const mongoose = require("mongoose");
 const config = require("config");
-const uri = config.get("mongoURI");
+const mongoDBURL = config.get("mongoURI");
 const debug = require("debug")("server:debug");
+const chalk = require("chalk");
 
 const connectDB = async () => {
+  if (mongoDBURL === "" || mongoDBURL === null || mongoDBURL === undefined)
+    return console.log("database:", `No Connection`);
   try {
-    await mongoose.connect(uri, {
+    const mongooseOption = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: false
-    });
-    debug("Database connected...");
-    console.log("Database connected...");
+      useFindAndModify: false,
+    };
+    let conn = await mongoose.connect(mongoDBURL, mongooseOption);
+    console.log(chalk.blue("database:"), `${conn.connection.host}`);
   } catch (error) {
     console.error(error);
     process.exit(1);
