@@ -40,6 +40,7 @@ app.use(morgan("dev"));
 app.use(morgan("combined", { stream: accessLogStream }));
 
 // routes
+require("./routes/v1/index.route")(app);
 
 const PORT = process.env.PORT || config.get("PORT");
 
