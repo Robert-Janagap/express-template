@@ -3,6 +3,7 @@ const config = require("config");
 const mongoDBURL = config.get("mongoURI");
 const debug = require("debug")("server:debug");
 const chalk = require("chalk");
+const errorHandling = require("../lib/errorsHandling");
 
 const connectDB = async () => {
   if (mongoDBURL === "" || mongoDBURL === null || mongoDBURL === undefined)
@@ -17,8 +18,16 @@ const connectDB = async () => {
     let conn = await mongoose.connect(mongoDBURL, mongooseOption);
     console.log(chalk.blue("database:"), `${conn.connection.host}`);
   } catch (error) {
-    console.error(error);
-    process.exit(1);
+    mongoose.connection.close(() => {
+      console.error(
+        chalk.bold.red("Error"),
+        errorHandling({
+          errors: [error],
+          message: "Mongoose connection disconnected",
+          status: 500,
+        })
+      );
+    });
   }
 };
 
