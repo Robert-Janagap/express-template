@@ -3,7 +3,7 @@ const config = require("config");
 const mongoDBURL = config.get("mongoURI");
 const debug = require("debug")("server:debug");
 const chalk = require("chalk");
-const errorHandling = require("../lib/errorsHandling");
+const errorHandling = require("../lib/errorsHandling.lib");
 
 const connectDB = async () => {
   if (mongoDBURL === "" || mongoDBURL === null || mongoDBURL === undefined)
@@ -11,9 +11,7 @@ const connectDB = async () => {
   try {
     const mongooseOption = {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
+      useUnifiedTopology: true
     };
     let conn = await mongoose.connect(mongoDBURL, mongooseOption);
     console.log(chalk.blue("database:"), `${conn.connection.host}`);

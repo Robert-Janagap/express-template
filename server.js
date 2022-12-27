@@ -19,7 +19,7 @@ connectDB();
 app.use(express.json({ extended: false }));
 
 // prevent cors issue
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 /** secure http */
 app.use(helmet());
