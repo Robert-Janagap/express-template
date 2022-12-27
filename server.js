@@ -3,7 +3,6 @@ const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
 const config = require("config");
-const debug = require("debug")("server:debug");
 const connectDB = require("./database/connect");
 const cors = require("cors");
 const compression = require("compression");
