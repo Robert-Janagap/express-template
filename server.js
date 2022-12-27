@@ -9,6 +9,8 @@ const cors = require("cors");
 const compression = require("compression");
 const helmet = require("helmet");
 const chalk = require("./lib/logColor.lib");
+const { FieldsError, CommonError } = require("./lib/exception");
+const { Error: DatabaseError } = require("mongoose");
 
 const app = express();
 
@@ -19,7 +21,7 @@ connectDB();
 app.use(express.json({ extended: false }));
 
 // prevent cors issue
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: "*" }));
 
 /** secure http */
 app.use(helmet());
@@ -41,6 +43,44 @@ app.use(morgan("combined", { stream: accessLogStream }));
 
 // routes
 require("./routes/v1/index.route")(app);
+
+// catch errors
+app.use((err, req, res, next) => {
+  try {
+    if (config.get("server")) {
+      console.log(err);
+    }
+
+    switch (true) {
+      case err instanceof CommonError:
+        return res.status(err.code).json({
+          message: err.message,
+          code: err.code,
+        });
+      case err instanceof FieldsError:
+        return res.status(400).json({
+          message: err.message,
+          errors: err.errors,
+        });
+      case err instanceof DatabaseError.ValidationError: {
+        const errors = [];
+        Object.keys(err.errors).forEach((key) =>
+          errors.push({
+            message: err.errors[key].message,
+            path: key,
+            location: key,
+          })
+        );
+        return res.status(400).json({ message: err.message, errors });
+      }
+      case err instanceof DatabaseError.MongooseServerSelectionError: {
+        return res.status(500).json({ message: "Unable to Conenct Database" });
+      }
+      default:
+        return res.status(500).json({ message: err.message, code: err.code });
+    }
+  } catch (error) {}
+});
 
 const PORT = process.env.PORT || config.get("PORT");
 
